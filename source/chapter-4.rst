@@ -64,20 +64,21 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 .. compound::
 
-另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\内联\。比如我们使用一个稍微复杂的例子：
+     另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\内联\。比如我们使用一个稍微复杂的例子：
 
-__ https://en.wikipedia.org/wiki/Inline_expansion
-      ::
+     __ https://en.wikipedia.org/wiki/Inline_expansion
 
-              ready> def test(x) (1+2+x)*(x+(1+2));
-              ready> Read function definition:
-              define double @test(double %x) {
-              entry:
-                      %addtmp = fadd double 3.000000e+00, %x
-                      %addtmp1 = fadd double %x, 3.000000e+00
-                      %multmp = fmul double %addtmp, %addtmp1
-                      ret double %multmp
-               }
+     ::
+
+             ready> def test(x) (1+2+x)*(x+(1+2));
+             ready> Read function definition:
+             define double @test(double %x) {
+             entry:
+                     %addtmp = fadd double 3.000000e+00, %x
+                     %addtmp1 = fadd double %x, 3.000000e+00
+                     %multmp = fmul double %addtmp, %addtmp1
+                     ret double %multmp
+             }
 
 .. compound::
 
