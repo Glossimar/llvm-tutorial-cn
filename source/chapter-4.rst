@@ -59,9 +59,42 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 .. compound::
 
-这样一切都迎刃而解。
+这样一切都迎刃而解。在实践中，我们建议使用者始终使用IRBuilder来生成代码。IRBuilder的使用是没有额外的"语法开销"的（不需要在编译器的每个地方进行常量检查）
+并且还可以显著减少在某些情况（尤其是需要宏预处理或使用很多常量的语言）下生成的LLVM IR的代码量。
 
-LLVM优化器 Passes（LLVM Optimization Passes）
+.. compound::
+
+另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\ `内联`__\。比如我们使用一个稍微复杂的例子：
+
+-- https://en.wikipedia.org/wiki/Inline_expansion
+      ::
+
+              ready> def test(x) (1+2+x)*(x+(1+2));
+              ready> Read function definition:
+              define double @test(double %x) {
+              entry:
+                      %addtmp = fadd double 3.000000e+00, %x
+                      %addtmp1 = fadd double %x, 3.000000e+00
+                      %multmp = fmul double %addtmp, %addtmp1
+                      ret double %multmp
+               }
+
+.. compound::
+
+在这种情况下，LHS和RHS相乘的值是相同的。但是我们更希望IRBuilder生成"tmp = x + 3; result = tmp * tmp"而不是生成两次"x+3"。
+
+.. compound::
+
+令人遗憾的是，基本上没有本地分析可以检测并优化这个问题。解决这个问题需要两个转换：重新关联表达式（使加法表达式相同）和使用\ `公共表达式消除`__\来删除冗余的加法指令。
+幸运的是LLVM用"Passes"提供了多种方式进行优化。
+
+-- https://en.wikipedia.org/wiki/Common_subexpression_elimination
+
+
+LLVM优化-Passes（LLVM Optimization Passes）
 =============================================
+
+
+
 
 
