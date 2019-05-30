@@ -66,7 +66,7 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\内联\。比如我们使用一个稍微复杂的例子：
 
--- https://en.wikipedia.org/wiki/Inline_expansion
+__ https://en.wikipedia.org/wiki/Inline_expansion
       ::
 
               ready> def test(x) (1+2+x)*(x+(1+2));
