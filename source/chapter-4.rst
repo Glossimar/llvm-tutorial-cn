@@ -12,7 +12,7 @@
 ========
 
 欢迎进入"用LLVM开发新语言"教程的第四章。在前1-3章中，我们主要介绍了如何实现一门简单的语言（译者加 ：Kaleidoscope）以及加入LLVM IR的生成。在本章我们
-将介绍两个新的技术：在Kaleidoscope语言中加入优化，以及\JIT编译器\。这些新技术将向你展现如何为Kaleidoscope语言生成更加优质和高效的代码。
+将介绍两个新的技术：在Kaleidoscope语言中加入优化，以及\ `JIT编译器`__\。这些新技术将向你展现如何为Kaleidoscope语言生成更加优质和高效的代码。
 
 __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
@@ -50,7 +50,7 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
                      ret double %addtmp1
              }
 
-     根据上面的对比，我们可以发现\常数折叠\（在方法test里面LLVM IR翻译后 "1+2+x"的形式被优化为 "3+x"的形式）是一种很常见、重要的优化方式：因此很多语言都会在其AST中实现常数折叠。
+     根据上面的对比，我们可以发现\ `常数折叠`__\（在方法test里面LLVM IR翻译后 "1+2+x"的形式被优化为 "3+x"的形式）是一种很常见、重要的优化方式：因此很多语言都会在其AST中实现常数折叠。
 
      __ https://en.wikipedia.org/wiki/Constant_folding
 .. compound::
@@ -64,7 +64,7 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 .. compound::
 
-     另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\内联\。比如我们使用一个稍微复杂的例子：
+     另一方面， IRBuilder也会受到一定的限制：IRBuilder会在构建时进行代码\ `内联`__\。比如我们使用一个稍微复杂的例子：
 
      __ https://en.wikipedia.org/wiki/Inline_expansion
 
@@ -86,7 +86,7 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 .. compound::
 
-令人遗憾的是，基本上没有本地分析可以检测并优化这个问题。解决这个问题需要两个转换：重新关联表达式（使加法表达式相同）和使用\公共表达式消除\来删除冗余的加法指令。
+令人遗憾的是，基本上没有本地分析可以检测并优化这个问题。解决这个问题需要两个转换：重新关联表达式（使加法表达式相同）和使用\ `公共表达式消除`__\来删除冗余的加法指令。
 幸运的是LLVM用"Passes"提供了多种方式进行优化。
 
 __ https://en.wikipedia.org/wiki/Common_subexpression_elimination
