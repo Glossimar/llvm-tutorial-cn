@@ -35,6 +35,8 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
                 ret double %multmp
         }
 
+.. compound::
+
      以上翻译生成的LLVM IR代码并不是经过我们之前所做词法分析、语法分析后构建的AST生成的（即是被LLVM IRBuider优化过后生成的LLVM IR， 此处注释为译者加）。以下生成的LLVM IR为未优化的结果：
 
      ::
@@ -57,6 +59,7 @@ __ https://en.wikipedia.org/wiki/Just-in-time_compilation
 
 .. compound::
 
+这样一切都迎刃而解。
 
 LLVM优化器 Passes（LLVM Optimization Passes）
 =============================================
